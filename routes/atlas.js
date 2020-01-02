@@ -11,15 +11,18 @@ router.get('/', function(req, res, next) {
 */
 
 router.all('*', function (req, res) {
-    console.log('Host:', req.header('Host'))
-
+//    console.log('Host:', req.header('Host'))
+//    console.log(req)
+//        console.log('http://192.168.1.8:80' + req.originalUrl)
     atlas.web(req, res, {
-        target: 'http://192.168.1.8:80', 
+        target: 'http://192.168.1.8:80' + req.originalUrl,
+//        forward:  'http://192.168.1.8:80' + req.originalUrl,
+        ignorePath: true,
         autoRewrite: true, 
         headers: {
-                // Host: req.header('Host'),
-                Host: 'planetaguru.com.ar',
-                'User-Agent':'GuruNodejs 1.0'
+                Host: req.header('Host'),
+                // Host: 'www.planetaguru.com.ar',
+                'User-Agent':'GuruNodejs 2.0'
                 }
         })
 
