@@ -4,11 +4,10 @@ class catalogador {
     constructor() {
         this._DBFile = ""
         this._limite = 50
+        this._version = '1'
     }
 
     open(DBFile) {
-
-        console.log('por abrir: ', DBFile)
 
 //        if (DBFile)
             this.db = new sqlite3.Database(DBFile, sqlite3.OPEN_READONLY)
@@ -22,19 +21,40 @@ class catalogador {
         this.db.close();
     }
 
-    search(str) {
+    version () {
+        return this._version
+    }
+
+    // Parametros:
+    // str: vector con las plabras a buscar.
+    // nostr: vector con palabrsa que NO tiene que estar.
+    search(str, nostr) {
         const that = this
 
         return new Promise(function (resolve, reject) {
             let vector = []
+            let _str, _nostr, existe = "", noexiste = ""
+
+            if (str) {
+                _str = str
+
+                _str.forEach(element => { existe += ` and path like '%${element}%' ` })
+            }
+
+            if (nostr) {
+                _nostr = nostr
+
+                _nostr.forEach(item => { noexiste += ` and path not like '%${item}%' ` })
+            }
 
             that.db.parallelize(function() {
                 that.db.each(`
-                SELECT d.nombre || c.archivo AS path, c.tamanio as bytes, c.fecha as date
-                FROM directorio d, catalogov2 c, etiqueta e
-                WHERE d.id_directorio == c.id_directorio and c.id_etiqueta = e.id_etiqueta
-                and path like '%${str}%'
-                limit ${that._limite}`, function(err, row) {
+                    SELECT d.nombre || c.archivo AS path, c.tamanio as bytes, c.fecha as date
+                    FROM directorio d, catalogov2 c, etiqueta e
+                    WHERE d.id_directorio == c.id_directorio and c.id_etiqueta = e.id_etiqueta
+                    ${existe} ${noexiste} 
+                    limit ${that._limite}`, 
+               function(err, row) {
                     vector.push(row)
                }, function(error, total) {
                    if (error) reject(error)
@@ -42,10 +62,7 @@ class catalogador {
                })
             })
         })
-
     }
-
-
 }
 
 module.exports = catalogador
