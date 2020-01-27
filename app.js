@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const indexRouter = require('./routes/index')
-const usersRouter = require('./routes/users')
+const catalogadorRouter = require('./routes/catalogador')
 const atlasRouter = require('./routes/atlas')
 
 const app = express()
@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
+app.use('/catalogador', catalogadorRouter)
 app.use('*', atlasRouter)
 
 // catch 404 and forward to error handler
