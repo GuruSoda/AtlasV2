@@ -15,7 +15,7 @@
 
     <nav>
         <div class="nav-wrapper">
-          <a href="#!" class="brand-logo center">Logo</a>
+          <a href="/catalogador/" class="brand-logo center">Logo</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
           <ul class="right hide-on-med-and-down">
@@ -78,7 +78,7 @@
       load('main', 'partials/buscar.html', function() {
           document.getElementById('search').addEventListener('keyup', function(event){
             if (event.keyCode === 13) {
-              event.preventDefault();
+              event.preventDefault()
               onBuscar()
 //              document.getElementById('botonBuscar').click();
             }

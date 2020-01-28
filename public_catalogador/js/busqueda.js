@@ -10,7 +10,6 @@ async function onBuscar() {
             <tr>
                 <td>${obj.path}</td>
                 <td>${obj.bytes}</td>
-                <td>${obj.date}</td>
             </tr>`
     })
 
@@ -27,7 +26,6 @@ function tablaResultado(res) {
       <tr>
           <th>Nombre</th>
           <th>Bytes</th>
-          <th>Fecha</th>
       </tr>
     </thead>`
 
