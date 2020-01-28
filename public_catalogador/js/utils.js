@@ -7,7 +7,11 @@ function load(selector, url, cb) {
             document.getElementById(selector).innerHTML = request.responseText
 
             if (cb) cb()
-        }
+        } 
+    }
+
+    request.onerror = function () {
+        if (cb) cb()
     }
 
     request.open('GET', url)

@@ -4,7 +4,7 @@ const path = require('path')
 const catalogador = require('../models/catalogadorModel')
 
 const catalogadorws = new catalogador()
-catalogadorws.open('databases/cosas.sqlite3')
+catalogadorws.open('databases/catalogo.bd')
 
 /*
 router.use('/', express.static(path.join(__dirname, 'public_catalogador')))
@@ -17,15 +17,13 @@ router.get('/', function (req, res, next) {
 // curl -X POST -H "Content-Type: application/json" -d '{"word":"ghost"}' http://localhost:3000/catalogador/search
 router.post('/search', function(req, res, next) {
 
-    console.log(req.body)
-
     const str = req.body.word
     const nostr = req.body.noword
 
     catalogadorws.search(str, nostr).then(function(nombres) {
 //        console.log(JSON.stringify(nombres))
 //        console.log(nombres)
-            console.log('Total items encontrados:', nombres.length)
+//        console.log('Total items encontrados:', nombres.length)
         res.json(nombres)
     }).catch(function(error) {
         res.json([])

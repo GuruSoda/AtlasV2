@@ -5,8 +5,6 @@ async function onBuscar() {
 
     let catalogador = new catalogadorClient()
 
-    console.log(busqueda)
-
     let resultado = (await catalogador.buscar(busqueda.str, busqueda.nostr)).map(function(obj) {
         return `
             <tr>
