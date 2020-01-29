@@ -105,3 +105,7 @@ dist
 
 # Directorio para las bases de datos.
 databases/
+
+# Configuracon del Servidor
+configs/
+
