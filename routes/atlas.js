@@ -4,6 +4,13 @@ const router = express.Router()
 const httpProxy =  require('http-proxy')
 const atlas = httpProxy.createProxyServer({})
 
+const fs = require('fs')
+
+let configAtlas = {}
+if (fs.existsSync('configs/atlas.json')) {
+    configAtlas = require('../configs/atlas.json')
+}
+
 /*
 router.get('/', function(req, res, next) {
   res.send('respond with a resource')
@@ -15,7 +22,7 @@ router.all('*', function (req, res) {
 //    console.log(req)
 //        console.log('http://192.168.1.8:80' + req.originalUrl)
     atlas.web(req, res, {
-        target: 'http://192.168.1.8:80' + req.originalUrl,
+        target: 'http://' + configAtlas.defaultRequest + req.originalUrl,
 //        forward:  'http://192.168.1.8:80' + req.originalUrl,
         ignorePath: true,
         autoRewrite: true, 

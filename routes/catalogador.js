@@ -4,7 +4,7 @@ const path = require('path')
 const catalogador = require('../models/catalogadorModel')
 
 const catalogadorws = new catalogador()
-catalogadorws.open('databases/catalogo.bd')
+catalogadorws.open()
 
 /*
 router.use('/', express.static(path.join(__dirname, 'public_catalogador')))

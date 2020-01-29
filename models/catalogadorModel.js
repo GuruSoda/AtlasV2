@@ -1,4 +1,13 @@
 const sqlite3 = require('sqlite3').verbose()
+const fs = require('fs')
+
+const configuracion = 'configs/catalogador.json'
+
+let config = {}
+
+if (fs.existsSync(configuracion)) {
+    config = require('../configs/catalogador.json')
+}
 
 class catalogador {
     constructor() {
@@ -9,10 +18,10 @@ class catalogador {
 
     open(DBFile) {
 
-//        if (DBFile)
+        if (DBFile)
             this.db = new sqlite3.Database(DBFile, sqlite3.OPEN_READONLY)
-//        else
-//            this.db = new sqlite3.Database(config.database, sqlite3.OPEN_READONLY)
+        else if (config.database)
+            this.db = new sqlite3.Database(config.database, sqlite3.OPEN_READONLY)
     
         return this
     }
