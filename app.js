@@ -10,6 +10,7 @@ const fs = require('fs')
 //const indexRouter = require('./routes/index')
 const catalogadorRouter = require('./routes/catalogador')
 const atlasRouter = require('./routes/atlas')
+const toSraPOC = require('./routes/toSraPOC')
 
 const app = express()
 
@@ -35,6 +36,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/catalogador', express.static(path.join(__dirname, 'public_catalogador')))
 app.use('/catalogador', catalogadorRouter)
 
+app.use('/srapoc', toSraPOC)
+
+// si llego hasta aqui se manda a Atlas V1 (C++)
 if (configAtlas.defaultRequest)
   app.use('*', atlasRouter)
 
