@@ -11,20 +11,31 @@ if (fs.existsSync('configs/toSraPOC.json')) {
     config = require('../configs/toSraPOC.json')
 }
 
-router.all('*', function (req, res) {
-  //  console.log(req.url)
 
-    console.log('Reenviar: http://' + config.srapoc + req.url)
+atlas.on('proxyReq', function(proxyReq, req, res, options){
+	if ((req.method === 'POST' || req.method === 'PUT') && req.body) {
+		proxyReq.write(JSON.stringify(req.body))
+	}
+})
+
+router.all('*', function (req, res) {
+
+	if (req.originalUrl === '/srapoc') {
+		res.redirect('/srapoc/')
+		return
+	}
+
+//	console.log(req)
+//	console.log('req.originalUrl:', req.originalUrl)
+//	console.log('Reenviar: http://' + config.srapoc + req.url)
 
     atlas.web(req, res, {
         target: 'http://' + config.srapoc + req.url,
-        forward: 'http://' + config.srapoc + req.url,
         ignorePath: true,
         autoRewrite: false,
         headers: {
                 Host: req.header('Host'),
-                // Host: 'www.planetaguru.com.ar',
-                'User-Agent':'GuruNodejs 2.0'
+                'User-Agent':'Atlas 2.0'
                 }
         })
 

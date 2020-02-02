@@ -17,13 +17,17 @@ router.get('/', function(req, res, next) {
 })
 */
 
+/*
+// Prueba segun la pagina oficial
 router.all('*', function (req, res) {
-//    console.log('Host:', req.header('Host'))
-//    console.log(req)
-//        console.log('http://192.168.1.8:80' + req.originalUrl)
+	console.log(req.headers)
+	atlas.web(req, res, { target: 'http://localhost:80' })
+})
+*/
+
+router.all('*', function (req, res) {
     atlas.web(req, res, {
         target: 'http://' + configAtlas.defaultRequest + req.originalUrl,
-//        forward:  'http://192.168.1.8:80' + req.originalUrl,
         ignorePath: true,
         autoRewrite: true, 
         headers: {
