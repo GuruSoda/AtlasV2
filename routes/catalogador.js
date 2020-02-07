@@ -3,8 +3,13 @@ const router = express.Router();
 const path = require('path')
 const catalogador = require('../models/catalogadorModel')
 
+const serveIndex = require('serve-index')
+
+
 const catalogadorws = new catalogador()
 catalogadorws.open()
+
+router.use('/cosas', express.static('/Cosas', {etag: false}), serveIndex('/Cosas', {hidden: true, icons: true, view: 'details' }))
 
 /*
 router.use('/', express.static(path.join(__dirname, 'public_catalogador')))

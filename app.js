@@ -6,6 +6,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const fs = require('fs')
+const serveIndex = require('serve-index')
 
 //const indexRouter = require('./routes/index')
 const catalogadorRouter = require('./routes/catalogador')
@@ -39,6 +40,8 @@ app.use('/catalogador', express.static(path.join(__dirname, 'public_catalogador'
 app.use('/catalogador', catalogadorRouter)
 
 app.use('/srapoc', toSraPOC)
+
+app.use('/fs', express.static('/Musica', {etag: false}), serveIndex('/Musica', {hidden: true, icons: true, view: 'details' }))
 
 // si llego hasta aqui se manda a Atlas V1 (C++)
 if (configAtlas.defaultRequest)
