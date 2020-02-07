@@ -49,8 +49,11 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        let elems = document.querySelectorAll('.sidenav');
-        let instances = M.Sidenav.init(elems, {});
+//        let elems = document.querySelectorAll('.sidenav')
+//        let instances = M.Sidenav.init(elems, {})
+
+
+        M.AutoInit();
     });
 
     crossroads.addRoute('', async function () {
@@ -76,6 +79,10 @@
 //      element.removeEventListener()
 
       load('main', 'partials/buscar.html', function() {
+
+          let elems = document.querySelectorAll('.dropdown-trigger');
+          let instances = M.Dropdown.init(elems, {});
+
           document.getElementById('search').addEventListener('keyup', function(event){
             if (event.keyCode === 13) {
               event.preventDefault()

@@ -12,13 +12,19 @@
       </nav>
 
       <div class="section">
+        <ul id="dropdown" class="dropdown-content left red-text text-lighten-2">
+          <li><a href="#!">one<span class="badge">1</span></a></li>
+          <li><a href="#!">two<span class="new badge">1</span></a></li>
+          <li><a href="#!">three</a></li>
+        </ul>
+        <a class="btn dropdown-trigger waves-effect waves-light red lighten-2" href="#!" data-target="dropdown">Catalogo<i class="material-icons right">arrow_drop_down</i></a>
+       
         <button class="right btn waves-effect waves-light red lighten-2" type="submit" name="action" onclick=onBuscar()>Buscar
           <i class="material-icons right">send</i>
         </button>
       </div>
 
     </div>
-
 
     <div id="resultado-busqueda">
     </div>

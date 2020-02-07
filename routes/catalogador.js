@@ -35,4 +35,13 @@ router.get('/version', function(req, res, next) {
     res.json({version: catalogadorws.version()})
 })
 
+router.get('/catalogos', function(req, res, next) {
+    catalogadorws.catalogos().then(function(data) {
+        res.json(data)
+    }).catch(function(error){
+        res.json({})
+        console.log(error)
+    })
+})
+
 module.exports = router
