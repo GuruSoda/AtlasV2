@@ -34,6 +34,27 @@ class catalogador {
         return this._version
     }
 
+    catalogos() {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+            let vector = []
+
+            that.db.parallelize(function() {
+                that.db.each(`
+                    SELECT *
+                    FROM etiqueta`, 
+               function(err, row) {
+                    vector.push(row)
+               }, function(error, total) {
+                   if (error) reject(error)
+                   else resolve(vector)
+               })
+            })
+        })
+
+    }
+
     // Parametros:
     // str: vector con las plabras a buscar.
     // nostr: vector con palabrsa que NO tiene que estar.

@@ -3,8 +3,6 @@ async function onBuscar() {
 
     let busqueda = analizarBusqueda(str.value)
 
-    let catalogador = new catalogadorClient()
-
     let resultado = (await catalogador.buscar(busqueda.str, busqueda.nostr)).map(function(obj) {
         return `
             <tr>
@@ -52,4 +50,21 @@ function analizarBusqueda(str) {
     if (_nostr.length) objBusqueda.nostr = _nostr
 
     return objBusqueda
+}
+
+function cargarListaCatalogos() {
+    let lista = document.getElementById('lista-catalogos')
+
+    if (lista) {
+
+        let items = ''
+
+        catalogador.catalogos().then(function(data){
+
+            for (i=0;i<data.length;i++)
+                items += `<li><a>${data[i].nombre}</a></li>`
+            
+            lista.innerHTML = items
+        })
+    }
 }

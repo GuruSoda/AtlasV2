@@ -31,7 +31,7 @@
       <li><a href="navegar.html">Navegar</a></li>
       <li><a href="badges.html">Components</a></li>
       <li><a href="collapsible.html">Javascript</a></li>
-      <li><a href="#/search"><i class="material-icons left">search</i>Buscar</a></li>
+      <li><a class="sidenav-close" href="#/search"><i class="material-icons left">search</i>Buscar</a></li>
     </ul>
 
     <div class="container">
@@ -49,11 +49,11 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-//        let elems = document.querySelectorAll('.sidenav')
-//        let instances = M.Sidenav.init(elems, {})
+        let elems = document.querySelectorAll('.sidenav')
+        let instances = M.Sidenav.init(elems, {draggable: false, edge: 'left'})
 
 
-        M.AutoInit();
+//        M.AutoInit();
     });
 
     crossroads.addRoute('', async function () {
@@ -80,8 +80,10 @@
 
       load('main', 'partials/buscar.html', function() {
 
-          let elems = document.querySelectorAll('.dropdown-trigger');
-          let instances = M.Dropdown.init(elems, {});
+          let elems = document.querySelectorAll('.dropdown-trigger')
+          let instances = M.Dropdown.init(elems, {})
+
+          cargarListaCatalogos()
 
           document.getElementById('search').addEventListener('keyup', function(event){
             if (event.keyCode === 13) {

@@ -40,4 +40,13 @@ class catalogadorClient {
         const res = await fetch(this._URLCatalogador + '/catalogador/search', opciones)
         return await res.json()
     }
+
+    catalogos() {
+        return fetch(this._URLCatalogador + '/catalogador/catalogos').then(function(data) {
+            return data.json()
+        })
+    }
+
 }
+
+var catalogador = new catalogadorClient()
