@@ -57,6 +57,16 @@ router.get('/catalogos', function(req, res, next) {
     })
 })
 
+router.get('/id/:id', function(req, res, next) {
+    catalogadorws.id(req.params.id).then(function(data) {
+        data.ruta = data.dir_etiqueta + data.directorio + data.archivo 
+        res.json(data)
+    }).catch(function(error){
+        res.json({})
+        console.log(error)
+    })
+})
+
 router.get('/subir', function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/html'})
     res.write('<form action="/catalogador/upload" method="post" enctype="multipart/form-data">')

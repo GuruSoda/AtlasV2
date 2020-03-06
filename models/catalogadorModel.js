@@ -79,7 +79,7 @@ class catalogador {
 
             that.db.parallelize(function() {
                 that.db.each(`
-                    SELECT d.nombre || c.archivo AS path, c.tamanio as bytes, c.fecha as date
+                    SELECT d.nombre || c.archivo AS path, c.tamanio as bytes, c.fecha as date, e.nombre as etiqueta
                     FROM directorio d, catalogov2 c, etiqueta e
                     WHERE d.id_directorio == c.id_directorio and c.id_etiqueta = e.id_etiqueta
                     ${existe} ${noexiste} 
@@ -93,6 +93,27 @@ class catalogador {
             })
         })
     }
+
+    id(nro) {
+        const that = this
+
+        return new Promise(function (resolve, reject) {
+
+            that.db.parallelize(function() {
+                that.db.get(`
+                    SELECT d.nombre as directorio, c.archivo as archivo, c.tamanio as bytes, c.fecha as date, e.nombre as catalogo, e.directorio as dir_etiqueta
+                    FROM directorio d, catalogov2 c, etiqueta e
+                    WHERE d.id_directorio = c.id_directorio and c.id_etiqueta = e.id_etiqueta
+                    and c.id_catalogo = ?
+                    limit 1`, [nro],  
+               function(err, row) {
+                   if (err) reject(err)
+                   else resolve(row)
+               })
+            })
+        })
+    }
+
 }
 
 module.exports = catalogador
